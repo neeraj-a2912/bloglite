@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+    Home
+{% endblock  %}
+{% block content %}
+{% for post in posts %}
+{% if post.author %}
+    <div class="post p-1 my-1" style="box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px; background-color: white;">
+    <a href="{{url_for('users.user_profile', username= post.author.name )}}" style="color : black;"><h5>@{{post.author.name}}</h5></a>
+    <a href="{{url_for('posts.post', post_id = post.id )}}" style="color : black;"><b>{{post.caption}}</b></a>
+    {% if post.content %}
+    <div class="form-group">
+        <p>{{post.content}}</p>
+    </div>
+    {% endif %} 
+    {% if post.img_post %}
+    <div class="img_post">
+        <img src="{{url_for('static',  filename = 'images/' + post.img_post )}}" class="img-fluid my-1 p-2" alt="{{post.img_post}}">
+    </div>
+    {% endif %}
+  </div>
+{% endif %}
+{% endfor %}
+{% endblock %}

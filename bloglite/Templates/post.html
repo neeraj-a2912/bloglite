@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{title}}   
+{% endblock  %}
+
+{% block content %}
+    <div class="post p-1 my-1" style="box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px; background-color: white;">
+        <div class="d-flex">
+                <div class="me-auto p-2">
+                    <a href="{{url_for('users.user_profile', username= post.author.name )}}" style="color : black;"><h5>@{{post.author.name}}</h5></a>
+                </div>
+                {% if post.author == current_user %}
+                <div class="p-2">
+                    <a href="{{url_for('posts.editpost', post_id = post.id)}}" class="btn btn-sm btn-light" style="color : black;">Edit</a>
+                </div>
+                <div class="p-2">
+                    <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#deleteModal" >Delete</button>
+                </div>    
+                {% endif %}
+        </div>
+        <p class="mb-0"><b>{{post.caption}}</b></p>
+        {% if post.content %}
+        <div class="form-group">
+            <p>{{post.content}}</p>
+        </div>   
+        {% endif %}
+        {% if post.img_post %}
+        <div class="img_post">
+            <img src="{{url_for('static',  filename = 'images/' + post.img_post )}}" alt="{{post.img_post}}" class="img-fluid my-1 p-2">
+        </div>
+        {% endif %}
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Post</h1>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to delete this post?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Cancel</button>
+            <form action="{{url_for('posts.delete_post', post_id = post.id )}}" method="POST">
+                {{form.hidden_tag()}}  
+                {{form.submit(value='Delete', class="btn btn-sm btn-dark")}}                      
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>
+{% endblock  %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}
+    Add Post
+{% endblock %}
+{% block content %}
+    <div class="container my-2" style="background-color: white;">
+        <h1 class="py-1">Post</h1>
+        <form action="" class="p-2" method="POST" enctype="multipart/form-data">
+            {{form.hidden_tag()}}
+            <div class="form-group">
+                {{form.caption.label(class='form-control-label')}}
+                {{form.caption(class="form-control shadow-none")}}
+            </div>
+            <div class="form-group">
+                {{form.content.label(class='form-control-label')}}
+                {{form.content(class="form-control shadow-none")}}
+            </div>
+            <div class="form-group">
+                {{form.picture.label(class='form-control-label my-3')}}
+                {{form.picture(class='form-control-file')}}
+                {% if form.picture.errors %}
+                    {% for error in form.picture.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{form.submit(class="btn btn-dark")}}
+            </div>        
+        </form>
+    </div>
+{% endblock %}

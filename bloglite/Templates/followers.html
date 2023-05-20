@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+    Followers
+{% endblock  %}
+{% block content %}
+<div class="container my-2" style="background-color: white;">
+    <h1 class="p-1">Followers</h1>
+    {% for follower in user.followers %}
+        <a href="{{url_for('users.user_profile', username = follower.name)}}" class="p-2" style="color : black;"><h5>@{{follower.name}}</h5></a>
+    {% endfor %}
+</div>
+{% endblock  %}

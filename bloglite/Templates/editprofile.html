@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}
+    Edit Profile - {{user.name}}
+{% endblock %}
+{% block content %}
+<div class="container" style="background-color: white;">
+    <h2 class="py-1">Edit Profile</h2>
+    <form action="" class="p-2" method="post" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+            <div class="form-group m-1">
+                {{form.username.label(class='form-control-label')}}
+                {{form.username(class='form-control shadow-none m-1')}}
+                {% for error in form.username.errors %}
+                <div class="alert alert-danger p-1 m-2" role="alert">
+                    {{error}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="form-group m-1">
+                {{form.email_address.label(class='form-control-label')}}
+                {{form.email_address(class='form-control m-1 shadow-none')}}
+                {% for error in form.email_address.errors %}
+                <div class="alert alert-danger p-1" role="alert">
+                    {{error}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="form-group m-1">
+                {{form.bio.label(class='form-control-label')}}
+                {{form.bio(class='form-control m-1 shadow-none')}}
+            </div>
+            <div class="form-group m-1">
+                {{form.picture.label(class='form-control-label my-3')}}
+                {{form.picture(class='form-control-file')}}
+                {% if form.picture.errors %}
+                    {% for error in form.picture.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="form-group m-1">
+                {{form.submit(class="btn btn-dark m-1")}}
+            </div>
+            
+    </form>
+</div>
+{% endblock %}
